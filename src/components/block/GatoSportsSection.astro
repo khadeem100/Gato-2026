@@ -1,0 +1,96 @@
+---
+import { getTranslator } from "../../lib/i18n.ts";
+
+const __ = await getTranslator(Astro.currentLocale);
+---
+
+<section class="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] py-16 sm:py-30 overflow-hidden" style="color: white !important;">
+  <div class="container">
+    <div class="grid sm:grid-cols-2 gap-10 sm:gap-16 items-center mb-16">
+      <div class="animate-slide-in">
+        <span class="inline-block px-4 py-1.5 bg-[#9ACD32]/20 rounded-full text-sm font-medium mb-6" style="color: #9ACD32;">
+          {__("Ons Eigen Merk")}
+        </span>
+        <h2 class="text-h2 sm:text-h1 font-medium mb-6" style="color: white;">
+          GatoSports
+        </h2>
+        <p class="text-xl mb-6" style="color: rgba(255,255,255,0.9);">
+          {__("Hardlopen is meer dan bewegen. Het is vrijheid, uitdaging en passie. GatoSports is geboren uit diezelfde passie - sportkleding die meebeweegt met jouw ambitie.")}
+        </p>
+        <p class="mb-8" style="color: rgba(255,255,255,0.7);">
+          {__("Onze collectie is speciaal ontworpen voor hardlopers en outdoor enthousiastelingen. Lichtgewicht materialen, reflecterende details voor veiligheid, en een pasvorm die je nooit in de weg zit. Van vroege ochtendlopen tot avondlijke trails - GatoSports is er voor elke kilometer.")}
+        </p>
+        <a 
+          href="https://www.gatosports.com" 
+          target="_blank"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-[#9ACD32] text-black rounded-lg font-medium hover:bg-[#8BC32A] transition-colors"
+        >
+          {__("Shop GatoSports")}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      
+      <div class="relative animate-slide-in animation-delay-200">
+        <img 
+          src="/gato/DSC02669.jpg" 
+          alt="GatoSports hardloopster in de stad" 
+          class="rounded-xl w-full aspect-[3/4] object-cover shadow-2xl"
+        />
+        <div class="absolute -bottom-6 -left-6 bg-[#9ACD32] text-black p-4 rounded-lg shadow-xl">
+          <div class="text-2xl font-bold">100%</div>
+          <div class="text-sm">{__("Milieuvriendelijk")}</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product Features -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-16">
+      <div class="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm animate-slide-in animation-delay-100">
+        <div class="w-10 h-10 mb-3 mx-auto rounded-full bg-[#9ACD32]/20 flex items-center justify-center"><svg class="w-5 h-5 text-[#9ACD32]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <h3 class="font-medium mb-1" style="color: white;">{__("Lichtgewicht")}</h3>
+        <p class="text-sm" style="color: rgba(255,255,255,0.6);">{__("Ademende materialen")}</p>
+      </div>
+      <div class="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm animate-slide-in animation-delay-200">
+        <div class="w-10 h-10 mb-3 mx-auto rounded-full bg-[#9ACD32]/20 flex items-center justify-center"><svg class="w-5 h-5 text-[#9ACD32]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></div>
+        <h3 class="font-medium mb-1" style="color: white;">{__("Reflecterend")}</h3>
+        <p class="text-sm" style="color: rgba(255,255,255,0.6);">{__("Veilig in het donker")}</p>
+      </div>
+      <div class="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm animate-slide-in animation-delay-300">
+        <div class="w-10 h-10 mb-3 mx-auto rounded-full bg-[#9ACD32]/20 flex items-center justify-center"><svg class="w-5 h-5 text-[#9ACD32]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/></svg></div>
+        <h3 class="font-medium mb-1" style="color: white;">{__("Waterafstotend")}</h3>
+        <p class="text-sm" style="color: rgba(255,255,255,0.6);">{__("Weer of geen weer")}</p>
+      </div>
+      <div class="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm animate-slide-in animation-delay-400">
+        <div class="w-10 h-10 mb-3 mx-auto rounded-full bg-[#9ACD32]/20 flex items-center justify-center"><svg class="w-5 h-5 text-[#9ACD32]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg></div>
+        <h3 class="font-medium mb-1" style="color: white;">{__("Duurzaam")}</h3>
+        <p class="text-sm" style="color: rgba(255,255,255,0.6);">{__("Eco-vriendelijke productie")}</p>
+      </div>
+    </div>
+    
+    <!-- Product Showcase -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <img 
+        src="/gato/DSC02270.jpg" 
+        alt="Hardloper in neon jacket" 
+        class="rounded-lg w-full aspect-square object-cover hover:scale-105 transition-transform duration-300"
+      />
+      <img 
+        src="/gato/DSC02895.jpg" 
+        alt="GatoSports Softflask product" 
+        class="rounded-lg w-full aspect-square object-cover hover:scale-105 transition-transform duration-300"
+      />
+      <img 
+        src="/gato/DSC03280.jpg" 
+        alt="Hardloper met LED vest" 
+        class="rounded-lg w-full aspect-square object-cover hover:scale-105 transition-transform duration-300"
+      />
+      <img 
+        src="/gato/DSC03514.jpg" 
+        alt="Hardloopster met LED vest" 
+        class="rounded-lg w-full aspect-square object-cover hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+  </div>
+</section>

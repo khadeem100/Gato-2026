@@ -8,34 +8,34 @@ const __ = await getTranslator(Astro.currentLocale);
   <h2
     class="text-h3 sm:text-h2 intersect-once intersect:animate-slide-in mb-3 text-center font-medium"
   >
-    {__("From chaos to confidence")}
+    {__("Van aanvraag tot levering")}
   </h2>
   <p
     class="text-muted-foreground intersect-once intersect:animate-slide-in motion-delay-100 mx-auto mb-10 max-w-180 text-center text-lg sm:mb-16"
   >
     {
       __(
-        "Our compliance officers handle the entire journey for you - from setup and risk assessments to audit coordination and ongoing monitoring - so you can stay focused on building.",
+        "Wij begeleiden u door het hele proces - van eerste aanvraag en ontwerp tot productie en levering. Zo kunt u zich focussen op uw bedrijf terwijl wij zorgen voor perfecte bedrukte producten.",
       )
     }
   </p>
   <compliance-track class="flex flex-col gap-6 sm:flex-row sm:gap-16">
-    <ComplianceTrackItem position="01" title={__("Set up and plan")}>
+    <ComplianceTrackItem position="01" title={__("Aanvraag & Offerte")}>
       {
         __(
-          "We start by reviewing your environment, completing the risk and vendor assessments, identifying gaps, and defining the right path forward. Then we create a compliance program tailored to how your team actually operates.",
+          "Stuur ons uw logo, ontwerp, gewenste producten en aantallen. Wij bekijken uw aanvraag en sturen binnen 24 uur een vrijblijvende offerte met de beste druktechniek voor uw project.",
         )
       }</ComplianceTrackItem
     >
-    <ComplianceTrackItem position="02" title={__("Implementation & audit")}>
+    <ComplianceTrackItem position="02" title={__("Drukproef & Goedkeuring")}>
       {
         __(
-          "Evidence collection is automated through the platform, and our team prepares every document and manages all communication with your auditor. You only join the essential calls, and we guide you through them with full preparation.",
+          "Na akkoord op de offerte ontvangt u een digitale drukproef. Zo ziet u precies hoe het eindresultaat eruit komt te zien. Na uw goedkeuring starten wij direct met de productie.",
         )
       }
     </ComplianceTrackItem>
-    <ComplianceTrackItem position="03" title={__("Stay compliant")}>
-      {__("Once certified, we run your compliance program in the background - monitoring, updating controls, refreshing evidence, and maintaining assessments - so you remain continuously audit-ready with no extra effort.")}
+    <ComplianceTrackItem position="03" title={__("Productie & Levering")}>
+      {__("Binnen 2 weken na goedkeuring van uw drukproef leveren wij uw bestelling. Al onze producten worden milieuvriendelijk geproduceerd met de hoogste kwaliteitsnormen.")}
     </ComplianceTrackItem>
   </compliance-track>
 </section>

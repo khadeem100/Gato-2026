@@ -13,34 +13,28 @@ const __ = await getTranslator(Astro.currentLocale);
 
 const menus = [
   {
-    label: __("Resources"),
+    label: __("Diensten"),
     items: [
       { label: __("Home"), href: getLink(Astro, "/") },
-      { label: __("Blog"), href: getLink(Astro, "/blog") },
-      { label: __("Hub"), href: "/hub" },
-      { label: __("Stories"), href: getLink(Astro, "/stories") },
-      { label: "GitHub", href: "https://github.com/getprobo/probo" },
+      { label: __("Catalogus"), href: "https://catalog.gato-international.com" },
+      { label: __("GatoSports"), href: "https://www.gatosports.com" },
+      { label: __("Projecten"), href: getLink(Astro, "/stories") },
     ],
   },
   {
-    label: __("Company"),
+    label: __("Bedrijf"),
     items: [
-      { label: __("About"), href: getLink(Astro, "/about") },
-      { label: __("Brand"), href: getLink(Astro, "/brand") },
-      { label: "LinkedIn", href: "https://www.linkedin.com/company/getprobo" },
+      { label: __("Over Ons"), href: getLink(Astro, "/about") },
+      { label: __("Contact"), href: getLink(Astro, "/contact") },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/gato-international" },
     ],
   },
   {
-    label: __("Legal"),
+    label: __("Juridisch"),
     items: [
-      { label: __("Cookie Policy"), href: getLink(Astro, "/cookie-policy") },
-      { label: __("Privacy Policy"), href: getLink(Astro, "/privacy") },
-      { label: __("Terms of service"), href: getLink(Astro, "/terms") },
-      { label: __("Security"), href: "https://compliance.getprobo.com" },
-      {
-        label: __("Subprocessors"),
-        href: "https://compliance.getprobo.com/subprocessors",
-      },
+      { label: __("Cookiebeleid"), href: getLink(Astro, "/cookie-policy") },
+      { label: __("Privacybeleid"), href: getLink(Astro, "/privacy") },
+      { label: __("Algemene Voorwaarden"), href: getLink(Astro, "/terms") },
     ],
   },
 ];
@@ -57,7 +51,7 @@ type Props = {
   >
     <div class="text-tertiary-foreground space-y-4 sm:max-w-[320px]">
       <a href="/" class="block">
-        <Image src={Logo} alt="Logo probo" width={73} height={20} />
+        <Image src={Logo} alt="Logo Gato-International" width={73} height={20} />
       </a>
       <Newsletter variant="footer" />
     </div>
@@ -87,7 +81,7 @@ type Props = {
   <p
     class="text-tertiary-foreground text-xxs container flex items-center gap-3"
   >
-    {__("Copyright © 2025 Probo. All rights reserved.")}
+    {__("© 2025 Gato-International B.V. Alle rechten voorbehouden.")}
     <OpenStatus client:visible />
   </p>
 </footer>

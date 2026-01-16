@@ -1,27 +1,27 @@
 export const menuItems = [
   {
-    label: "About",
-    description: "The people and vision powering Probo",
+    label: "Over Ons",
+    description: "Leer meer over Gato-International",
     href: "/about",
   },
   {
-    label: "Blog",
-    description: "The latest news from Probo",
-    href: "/blog",
+    label: "Catalogus",
+    description: "Bekijk onze productcatalogus",
+    href: "https://catalog.gato-international.com",
   },
   {
-    label: "Stories",
-    description: "Hear from our customers",
+    label: "GatoSports",
+    description: "Onze webshop voor sportkleding",
+    href: "https://www.gatosports.com",
+  },
+  {
+    label: "Projecten",
+    description: "Bekijk onze recente projecten",
     href: "/stories",
   },
   {
-    label: "Docs",
-    description: "Documentation for Probo",
-    href: "/docs",
-  },
-  {
-    label: "GitHub",
-    description: "Explore our open-source compliance tools",
-    href: "https://github.com/getprobo/probo",
+    label: "Contact",
+    description: "Neem contact met ons op",
+    href: "/contact",
   },
 ];

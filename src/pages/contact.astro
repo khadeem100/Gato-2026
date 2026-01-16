@@ -5,16 +5,49 @@ import { getTranslator } from "../lib/i18n.ts";
 const __ = await getTranslator(Astro.currentLocale)
 ---
 <Layout
-  title={__("Contact us")}
-  description={__("Get in touch with our compliance experts")}
+  title={__("Contact")}
+  description={__("Neem contact op met Gato-International B.V. voor een vrijblijvende offerte")}
 >
   <main>
     <animated-hero class="block py-10 sm:py-20 relative overflow-hidden">
-      <section class="container">
-        <h1 class="text-h2 mb-10 font-medium animate-slide-in text-center">
-          {__("Talk to a compliance expert")}
+      <section class="container max-w-200">
+        <h1 class="text-h2 mb-4 font-medium animate-slide-in text-center">
+          {__("Neem contact met ons op")}
         </h1>
-        <iframe id="tally-form" data-tally-src="https://tally.so/embed/nrxk9v?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&hideBranding=1" loading="lazy" width="100%" height="729" frameborder="0" marginheight="0" marginwidth="0" title="Probo can handle compliance for you"></iframe>
+        <p class="text-muted-foreground text-center mb-10 text-lg">
+          {__("Heeft u een vraag of wilt u een offerte aanvragen? Wij helpen u graag verder.")}
+        </p>
+        
+        <div class="grid sm:grid-cols-2 gap-10 mb-16">
+          <div class="p-8 rounded-xl border bg-white">
+            <h2 class="text-xl font-medium mb-4">{__("Algemene vragen")}</h2>
+            <p class="text-muted-foreground mb-4">{__("Voor vragen over bestellingen, producten of offertes:")}</p>
+            <a href="mailto:info@gato-international.com" class="text-primary font-medium hover:underline">
+              info@gato-international.com
+            </a>
+          </div>
+          
+          <div class="p-8 rounded-xl border bg-white">
+            <h2 class="text-xl font-medium mb-4">{__("GatoSports Webshop")}</h2>
+            <p class="text-muted-foreground mb-4">{__("Voor technische vragen over de GatoSports webshop:")}</p>
+            <a href="mailto:it@gatosports.com" class="text-primary font-medium hover:underline">
+              it@gatosports.com
+            </a>
+          </div>
+        </div>
+        
+        <div class="p-8 rounded-xl bg-level-1 text-center">
+          <h2 class="text-xl font-medium mb-4">{__("Offerte aanvragen")}</h2>
+          <p class="text-muted-foreground mb-6 max-w-140 mx-auto">
+            {__("Stuur ons een e-mail met uw logo/design, bedrijfsnaam, gewenste producten en aantallen, en de gewenste leverdatum. Wij reageren binnen 24 uur met een vrijblijvende offerte.")}
+          </p>
+          <a 
+            href="mailto:info@gato-international.com?subject=Offerte aanvraag" 
+            class="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
+          >
+            {__("Stuur offerte aanvraag")}
+          </a>
+        </div>
       </section>
     </animated-hero>
   </main>

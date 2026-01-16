@@ -15,8 +15,8 @@ const __ = await getTranslator(Astro.currentLocale)
 ---
 
 <Layout
-  title={__("Probo - Compliance done for you")}
-  description={__("Get SOC 2, GDPR, HIPAA, and ISO certified with expert guidance and the job done for you. Open-source compliance management platform with no vendor lock-in. Backed by Y Combinator.")}
+  title={__("Gato-International - Developing, Sourcing & Branding")}
+  description={__("Professioneel bedrukken van textiel en promotieartikelen. Zeefdruk, borduren en meer. Milieuvriendelijk en op maat voor uw bedrijf. Bekijk onze catalogus of neem contact op.")}
 >
   <animated-hero class="block py-10 pt-26 sm:pt-36 sm:pb-12 relative overflow-hidden px-5 -mt-16">
     <a
@@ -25,36 +25,36 @@ const __ = await getTranslator(Astro.currentLocale)
       rel="noopener noreferrer"
       class="yc-btn text-muted-foreground animate-perspective-in animation-delay-300 mx-auto mb-6 flex w-max items-center gap-2 px-4 py-2 sm:mb-8"
     >
-      {__("Shop at")}
+      {__("Bezoek onze webshop")}
       <Image src={YCombinator} alt="Logo YCombinator" width={77} height={15} />
     </a>
     <h1
       class="text-h2 sm:text-h1 mb-6 overflow-hidden text-center font-medium text-balance sm:mb-8"
     >
-      <span class="block animate-perspective-in">{__('Developing')},</span>
+      <span class="block animate-perspective-in">{__('Developing, Sourcing')}</span>
       <span class="block animate-perspective-in delay-50"
         >
-        {__("Sourcing and Branding")}
+        {__("& Branding")}
       </span
       >
     </h1>
     <p
       class="text-muted-foreground animate-perspective-in animation-delay-150 mx-auto mb-6 max-w-200 text-center text-lg text-balance sm:mb-8"
     >
-      {__("Our compliance officers run your program end-to-end. Stay continuously audit-ready without the overhead or complexity of traditional compliance platforms.")}
+      {__("Wij bedrukken textiel en promotieartikelen voor uw bedrijf. Van zeefdruk tot borduren - alles milieuvriendelijk en op maat gemaakt. Bekijk onze catalogus of vraag een offerte aan.")}
     </p>
     <div class="mb-11 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:mb-17">
       <Button
         class="animate-perspective-in animation-delay-200"
         variant="secondary"
         size="lg"
-        href="/docs/self-hosting/docker-compose">{__('Deploy Open Source')}</Button
+        href="https://catalog.gato-international.com">{__('Bekijk Catalogus')}</Button
       >
       <Button
         class="animate-perspective-in animation-delay-300"
         size="lg"
         rel="nofollow noreferrer"
-        href={getLink(Astro, "/contact")}>{__('Talk to an expert')}</Button
+        href={getLink(Astro, "/contact")}>{__('Neem Contact Op')}</Button
       >
     </div>
     <Badges
@@ -66,7 +66,7 @@ const __ = await getTranslator(Astro.currentLocale)
     />
     <section class="mix-blend-multiply mt-11 sm:mt-17">
       <h2 class="text-tertiary-foreground text-center animate-perspective-in animation-delay-300 ">
-        {__("Trusted by leading teams")}
+        {__("Vertrouwd door toonaangevende bedrijven")}
       </h2>
       <Logos class="animate-slide-in animation-delay-300" constrained/>
     </section>
@@ -76,44 +76,44 @@ const __ = await getTranslator(Astro.currentLocale)
 
   <section class="container py-10 sm:py-20">
     <h2 class="text-h3 sm:text-h2 mb-3 text-center font-medium">
-      {__("Put compliance on autopilot")}
+      {__("Ons werkproces")}
     </h2>
     <p class="text-muted-foreground mb-10 text-center text-lg sm:mb-12 max-w-180 mx-auto">
-      {__("Run your entire compliance program with a blend of expert support and automation. Probo's compliance officers handle the work behind the scenes while the platform keeps everything continuously audit-ready.")}
+      {__("Van ontwerp tot levering - wij zorgen voor een professioneel en milieuvriendelijk bedrukkingsproces. Binnen 2 weken na goedkeuring van uw design leveren wij uw bestelling.")}
     </p>
 
     <div
       class="flex grid-cols-2 flex-col items-start gap-10 sm:grid sm:gap-x-20 sm:gap-y-12"
     >
-      <SaleArg title={__("Your dedicated compliance expert")} video="/videos/keyshot1.mp4">
+      <SaleArg title={__("Stuur uw ontwerp")} video="/videos/keyshot1.mp4">
         <p>
-          {__("A seasoned compliance officer becomes an extension of your team, managing policies, controls, reviews, and assessments on your behalf - real expertise, not ticket threads.")}
+          {__("Mail uw logo of design, bedrijfsnaam, gewenste producten en aantallen naar info@gato-international.com. Wij nemen binnen 24 uur contact met u op.")}
         </p>
       </SaleArg>
 
       <SaleArg
-        title={__("Compliance that runs in the background")}
+        title={__("Ontvang uw drukproef")}
         video="/videos/keyshot2.mp4"
       >
         <p>
-          {__("Probo automates evidence collection, updates, and approvals, while our team keeps your entire program aligned and audit-ready. You're only notified when something genuinely needs your attention.")}
+          {__("Na goedkeuring van uw ontwerp ontvangt u een digitale drukproef. Zo weet u precies hoe het eindresultaat eruit zal zien voordat we beginnen met produceren.")}
         </p>
       </SaleArg>
 
       <SaleArg
-        title={__("Leverage your compliance for revenue growth")}
+        title={__("Professionele druktechnieken")}
         video="/videos/keyshot3.mp4"
       >
         <p>
-          {__("Show customers and prospects you're trustworthy. Share a secure, branded trust page that instantly proves your compliance and helps accelerate deals.")}
+          {__("Wij bieden diverse druktechnieken zoals zeefdruk, borduren, DTG en meer. Elke techniek wordt gekozen op basis van uw product en wensen voor het beste resultaat.")}
         </p>
       </SaleArg>
 
-      <SaleArg title={__("Get stuff done on Slack")}
+      <SaleArg title={__("Snelle levering")}
                video="/videos/keyshot4.mp4"
       >
         <p>
-          {__("Access documents, trigger workflows, and talk directly with your compliance officer - all without leaving Slack. Support that fits seamlessly into how your team already works.")}
+          {__("Binnen 2 weken na goedkeuring van uw drukproef leveren wij uw bestelling. Al onze producten en processen zijn milieuvriendelijk.")}
         </p>
       </SaleArg>
     </div>
