@@ -1,0 +1,99 @@
+---
+import { Image } from "astro:assets";
+import Logo from "../assets/probo-logo.svg";
+import Frameworks from "./block/Frameworks.astro";
+import OpenStatus from "../components/OpenStatus.svelte";
+import Cookie from "../components/Cookie.svelte";
+import Newsletter from "./block/Newsletter.astro";
+import { Toaster } from "svelte-sonner";
+import { getLink, getTranslator } from "../lib/i18n.ts";
+import Faro from "./faro.astro";
+
+const __ = await getTranslator(Astro.currentLocale);
+
+const menus = [
+  {
+    label: __("Resources"),
+    items: [
+      { label: __("Home"), href: getLink(Astro, "/") },
+      { label: __("Blog"), href: getLink(Astro, "/blog") },
+      { label: __("Hub"), href: "/hub" },
+      { label: __("Stories"), href: getLink(Astro, "/stories") },
+      { label: "GitHub", href: "https://github.com/getprobo/probo" },
+    ],
+  },
+  {
+    label: __("Company"),
+    items: [
+      { label: __("About"), href: getLink(Astro, "/about") },
+      { label: __("Brand"), href: getLink(Astro, "/brand") },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/getprobo" },
+    ],
+  },
+  {
+    label: __("Legal"),
+    items: [
+      { label: __("Cookie Policy"), href: getLink(Astro, "/cookie-policy") },
+      { label: __("Privacy Policy"), href: getLink(Astro, "/privacy") },
+      { label: __("Terms of service"), href: getLink(Astro, "/terms") },
+      { label: __("Security"), href: "https://compliance.getprobo.com" },
+      {
+        label: __("Subprocessors"),
+        href: "https://compliance.getprobo.com/subprocessors",
+      },
+    ],
+  },
+];
+type Props = {
+  noFrameworks?: boolean;
+};
+---
+
+{!Astro.props.noFrameworks && <Frameworks />}
+
+<footer class="bg-level-0 space-y-10 py-10 sm:py-20">
+  <div
+    class="container flex grid-cols-[520fr_560fr] flex-col-reverse gap-8 sm:grid"
+  >
+    <div class="text-tertiary-foreground space-y-4 sm:max-w-[320px]">
+      <a href="/" class="block">
+        <Image src={Logo} alt="Logo probo" width={73} height={20} />
+      </a>
+      <Newsletter variant="footer" />
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 text-xs sm:grid-cols-3">
+      {
+        menus.map((menu) => (
+          <div class="space-y-3">
+            <div class="mb-3 font-medium">{menu.label}</div>
+            <ul class="space-y-3">
+              {menu.items.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="text-tertiary-foreground text-sm hover:text-white hover:underline"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <p
+    class="text-tertiary-foreground text-xxs container flex items-center gap-3"
+  >
+    {__("Copyright © 2025 Probo. All rights reserved.")}
+    <OpenStatus client:visible />
+  </p>
+</footer>
+
+<Cookie client:only />
+
+<Toaster richColors position="top-center" client:only="svelte" />
+
+<Faro />

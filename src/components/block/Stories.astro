@@ -1,0 +1,93 @@
+---
+import { getCollection } from "astro:content";
+import StoryCard from "../StoryCard.astro";
+import Slider from "../ui/Slider.svelte";
+import { filterLang, getLink, getTranslator } from "../../lib/i18n.ts";
+
+const __ = await getTranslator(Astro.currentLocale);
+const stories = (await getCollection("stories", filterLang(Astro.currentLocale))).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<section class="stories dark bg-level-0 text-foreground overflow-hidden">
+  <div class="container py-10 sm:py-30">
+    <h2
+      class="text-h3 sm:text-h2 mb-3 text-center font-medium"
+    >
+      {__("Case studies")}
+    </h2>
+    <p
+      class="text-muted-foreground mb-6 text-center text-lg max-w-140 mx-auto"
+    >
+      {__("We help companies design and scale their cybersecurity compliance programs so they can focus on what they are best at - their business.")}
+    </p>
+
+    <a
+      href={getLink(Astro, "/stories")}
+      class="group mb-10 flex items-center justify-center gap-1.5 text-lg font-medium sm:mb-12"
+    >
+      {__("All case studies")}
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        xmlns="http://www.w3.org/2000/svg"
+        class="transition-transform group-hover:translate-x-1"
+      >
+        <path
+          d="M9.33325 4L13.3333 7.99999L9.33325 12"
+          stroke="currentColor"
+          stroke-width="1.33333"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          d="M12.6667 8H2.66675"
+          stroke="currentColor"
+          stroke-width="1.33333"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
+
+    <div class="mx-auto slider">
+      <Slider
+        client:load
+        withOverflow
+        navigateOnClick
+        options={{
+          perPage: 1,
+          updateOnMove: true,
+          gap: 24,
+          pagination: false,
+          breakpoints: {
+            640: {
+              gap: 16,
+            },
+          },
+        }}
+      >
+        {stories.map((story) => <StoryCard size="home" story={story}  />)}
+      </Slider>
+    </div>
+  </div>
+</section>
+
+<style>
+  .slider {
+    width: min(80vw, 720px);
+  }
+  .slider :global(.splide__slide) {
+    opacity: .4;
+  }
+  .slider :global(.splide__slide.is-active) {
+    opacity: 1;
+  }
+  .slider :global(.badge) {
+    opacity: 0;
+    transition: .3s;
+  }
+  .slider :global(.splide__slide.is-active .badge) {
+    opacity: 1;
+  }
+</style>

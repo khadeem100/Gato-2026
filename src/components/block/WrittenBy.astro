@@ -1,0 +1,44 @@
+---
+import clsx from "clsx";
+import { Image } from "astro:assets";
+import AntoinePortrait from "../../assets/antoine-bourchardy.png";
+import { getTranslator } from "../../lib/i18n.ts";
+const __ = await getTranslator(Astro.currentLocale);
+
+interface Props {
+  class?: string;
+}
+
+const props = Astro.props;
+---
+
+<div
+  class={clsx(
+    "flex flex-col gap-8 sm:gap-10 @sm:flex-row @sm:items-center",
+    props.class,
+  )}
+>
+  <div class="flex flex-col gap-2">
+    <div class="text-xs font-medium">{__("Written by")} Antoine Bouchardy</div>
+    <div class="text-muted-foreground text-xs">
+      <a
+        href="https://www.linkedin.com/in/antoinebouchardy/"
+        class="text-success">Antoine Bouchardy</a
+      >
+      {
+        __(
+          "is the CEO and co-founder of Probo, on a mission to make compliance simple and startup-friendly. He writes about the challenges founders face balancing growth with regulation. When he’s not building Probo, you’ll find him cycling or tinkering with open-source projects.",
+        )
+      }
+    </div>
+  </div>
+
+  <Image
+    densities={[1, 2]}
+    src={AntoinePortrait}
+    alt="Portrait Antoine Bouchardy"
+    class="mx-auto block sm:mx-0 @sm:size-25"
+    width={164}
+    height={164}
+  />
+</div>

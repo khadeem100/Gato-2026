@@ -1,0 +1,107 @@
+---
+import clsx from "clsx";
+import Button from "../ui/Button.svelte";
+import { tv } from "tailwind-variants";
+import { getTranslator } from "../../lib/i18n.ts";
+
+const __ = await getTranslator(Astro.currentLocale);
+
+const newsletter = tv({
+  base: "",
+  variants: {
+    variant: {
+      default: "bg-subtle rounded-3xl p-6 sm:p-8 @sm:flex items-center gap-20",
+      footer: "sm:max-w-[320px]",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+const props = Astro.props;
+---
+
+<newsletter-form>
+  <form class={newsletter(Astro.props)}>
+    <div
+      class={clsx(
+        "mb-6 @sm:max-w-65 @sm:mb-0",
+        props.variant === "footer" ? "text-sm" : "text-lg font-medium"
+      )}
+    >
+      {__("Sign up for our newsletter to get actionable insights about compliance, right to your inbox.")}
+    </div>
+    <div class="space-y-3">
+      <input
+        class={clsx(
+          "border-border-mid placeholder:text-quaternary w-full rounded-lg border px-3 bg-secondary ",
+          props.variant === "footer" ? "h-8" : "h-11 sm:h-8"
+        )}
+        name="email"
+        type="email"
+        required
+        placeholder={__("Enter your email")}
+        aria-label={__("Your email")}
+      />
+      <Button
+        type="submit"
+        class={clsx(
+          "w-full text-base sm:w-max",
+          props.variant === "footer" ? "h-9 w-max" : "h-11 sm:h-8"
+        )}>{__("Subscribe")}</Button
+      >
+    </div>
+  </form>
+</newsletter-form>
+
+<script>
+  import { toast } from "svelte-sonner";
+  import { customElementDefine } from "../../lib/dom";
+
+  class NewsletterForm extends HTMLElement {
+    connectedCallback() {
+      const form = this.querySelector("form");
+      if (!form) return;
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const button = form.querySelector("button") as HTMLButtonElement;
+        const originalText = button?.textContent || "Subscribe";
+
+        // Disable button during submission
+        if (button) {
+          button.disabled = true;
+          button.textContent = "Subscribing...";
+        }
+
+        try {
+          const response = await fetch("/api/newsletter", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            toast.success("Successfully subscribed to our newsletter!");
+            form.reset();
+          } else {
+            const result = await response.json();
+            toast.error(result.error || "An error occurred. Please try again.");
+          }
+        } catch (error) {
+          console.error("Newsletter subscription error:", error);
+          toast.error("An error occurred. Please try again.");
+        } finally {
+          if (button) {
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        }
+      });
+    }
+  }
+
+  customElementDefine("newsletter-form", () => NewsletterForm);
+</script>

@@ -1,0 +1,13 @@
+---
+import Link from "./Link.astro";
+interface Props {
+  href: string;
+}
+const { href } = Astro.props;
+---
+
+<Link
+  href={href}
+  class="hover:text-success aria-current-page:text-success px-4 py-1 text-base font-medium"
+  ><slot /></Link
+>

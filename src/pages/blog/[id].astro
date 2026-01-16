@@ -1,0 +1,107 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Prose from "../../components/Prose.astro";
+import Sharer from "../../components/block/Sharer.svelte";
+import WrittenBy from "../../components/block/WrittenBy.astro";
+import Newsletter from "../../components/block/Newsletter.astro";
+import { filterLang, getLink } from "../../lib/i18n.ts";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", filterLang('en'));
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const dateFormatter = Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.excerpt,
+  "datePublished": post.data.date.toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": post.data.author.name
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Probo",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.getprobo.com/probo-logo.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": Astro.url.toString()
+  }
+};
+
+// FAQ Schema (only if post has faqs in frontmatter)
+const faqSchema = post.data.faqs ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": post.data.faqs.map((faq: { question: string; answer: string }) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+} : null;
+---
+
+<Layout title={post.data.title} description={post.data.excerpt} ogImage={post.data.ogImage}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+  <main class="@container container my-10 max-w-[720px] sm:my-20">
+    <a
+      href={getLink(Astro, "/blog")}
+      class="text-quaternary mb-4 flex items-center gap-2 animate-fade-in animation-delay-200"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+        ><path
+          fill="#C3C8C2"
+          fill-rule="evenodd"
+          d="M18.566 10.234a.8.8 0 0 1 0 1.132L13.93 16l4.635 4.634a.8.8 0 0 1-1.132 1.132l-5.2-5.2a.8.8 0 0 1 0-1.132l5.2-5.2a.8.8 0 0 1 1.132 0Z"
+          clip-rule="evenodd"></path></svg
+      >
+      Back to Blog
+    </a>
+    <div
+      class="text-muted-foreground mb-5 animate-fade-in animation-delay-100"
+    >
+      {dateFormatter.format(new Date(post.data.date))}, by {
+        post.data.author.name
+      }
+    </div>
+    <h1 class="text-h3 sm:text-h2 mb-10 font-medium animate-slide-in">
+      {post.data.title}
+    </h1>
+    <p class="text-h5 mb-10 font-medium animate-slide-in animation-delay-100">
+      {post.data.excerpt}
+    </p>
+    <Prose class="animate-slide-in animation-delay-200">
+      <Content />
+    </Prose>
+    <hr class="my-10 sm:mb-20" />
+    <Sharer
+      client:only
+      url={Astro.url.toString()}
+      title={post.data.title}
+      class="my-10 sm:mt-20"
+    />
+    <WrittenBy class="my-10 sm:mb-20" />
+    <Newsletter />
+  </main>
+</Layout>
