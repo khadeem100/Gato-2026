@@ -18,7 +18,7 @@ const data = item.data;
 const images = dynamicImages(
   import.meta.glob<{
     default: ImageMetadata;
-  }>("/src/assets/stories/*.{jpeg,jpg,png,gif,svg}"),
+  }>("/src/assets/projecten/*.{jpeg,jpg,png,gif,svg}"),
 );
 const image = images(data.image);
 const logo = images(data.logo);

@@ -83,7 +83,7 @@ const imageSizes = (function (): [[number, number],[number, number]] {
 })()
 const badge = isDark ? (framework?.badgeDark ?? framework?.badge) : framework?.badge;
 const shouldInvert = isDark && !framework?.badgeDark
-const url = '/' + ( story.id.includes('/') ? story.id.replace('/', '/stories/') : `stories/${story.id}`)
+const url = '/' + ( story.id.includes('/') ? story.id.replace('/', '/projecten/') : `projecten/${story.id}`)
 ---
 
 <a href={url} class={classNames.base()}>
