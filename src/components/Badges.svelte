@@ -72,7 +72,7 @@
 <div class={clsx(className, 'relative')} bind:this={intersection.ref}>
   {#each visibleFrameworks as framework, index (index)}
     <div
-      class={clsx("text-center grid place-items-center overflow-hidden", border && 'aspect-square md:aspect-192/180 hover:bg-[#F4FCE6] transition-all')}
+      class={clsx("text-center grid place-items-center overflow-hidden", border && 'aspect-square md:aspect-192/180 hover:bg-[#fef9ed] transition-all')}
     >
       {#key framework.badge}
         <div

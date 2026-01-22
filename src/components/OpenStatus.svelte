@@ -5,7 +5,7 @@
   const dictionary = {
     operational: {
       label: "Operational",
-      color: "#93C926"
+      color: "#f5b21a"
     },
     degraded_performance: {
       label: "Degraded Performance",
