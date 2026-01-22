@@ -84,9 +84,11 @@
   }
   
   // Reactive statement to render Turnstile when step changes
-  $: if (currentStep === 3 && turnstileLoaded && isOpen) {
-    setTimeout(() => renderTurnstile(), 100);
-  }
+  $effect(() => {
+    if (currentStep === 3 && turnstileLoaded && isOpen) {
+      setTimeout(() => renderTurnstile(), 100);
+    }
+  });
 
   function close() { isOpen = false; currentStep = 0; }
   function nextStep() { 
