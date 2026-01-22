@@ -45,10 +45,20 @@
       script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
       script.async = true;
       script.defer = true;
-      script.onload = () => { turnstileLoaded = true; };
+      script.onload = () => { 
+        turnstileLoaded = true;
+        // Render Turnstile if we're on step 3
+        if (currentStep === 3) {
+          setTimeout(() => renderTurnstile(), 100);
+        }
+      };
       document.head.appendChild(script);
     } else {
       turnstileLoaded = true;
+      // Render Turnstile if we're on step 3
+      if (currentStep === 3) {
+        setTimeout(() => renderTurnstile(), 100);
+      }
     }
     
     // Callback for Turnstile
@@ -61,9 +71,26 @@
       delete (window as any).onTurnstileSuccess;
     };
   });
+  
+  function renderTurnstile() {
+    const container = document.querySelector('.cf-turnstile');
+    if (container && !container.hasChildNodes()) {
+      (window as any).turnstile.render('.cf-turnstile', {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: 'onTurnstileSuccess',
+        theme: 'light'
+      });
+    }
+  }
 
   function close() { isOpen = false; currentStep = 0; }
-  function nextStep() { if (currentStep < steps.length - 1) currentStep++; }
+  function nextStep() { 
+    if (currentStep < steps.length - 1) currentStep++; 
+    // Render Turnstile when reaching step 3 (index 3)
+    if (currentStep === 3 && turnstileLoaded) {
+      setTimeout(() => renderTurnstile(), 100);
+    }
+  }
   function prevStep() { if (currentStep > 0) currentStep--; }
 
   async function submitForm() {
