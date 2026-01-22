@@ -3,6 +3,7 @@
   
   let isOpen = $state(false);
   let currentStep = $state(0);
+  let turnstileLoaded = $state(false);
   let formData = $state({
     bedrijfsnaam: '',
     contactpersoon: '',
