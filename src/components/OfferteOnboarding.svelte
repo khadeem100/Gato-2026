@@ -82,14 +82,15 @@
       });
     }
   }
+  
+  // Reactive statement to render Turnstile when step changes
+  $: if (currentStep === 3 && turnstileLoaded && isOpen) {
+    setTimeout(() => renderTurnstile(), 100);
+  }
 
   function close() { isOpen = false; currentStep = 0; }
   function nextStep() { 
     if (currentStep < steps.length - 1) currentStep++; 
-    // Render Turnstile when reaching step 3 (index 3)
-    if (currentStep === 3 && turnstileLoaded) {
-      setTimeout(() => renderTurnstile(), 100);
-    }
   }
   function prevStep() { if (currentStep > 0) currentStep--; }
 
