@@ -13,14 +13,14 @@
 }
 
 .dark {
-    --color-foreground: #eceeec;
-    --color-muted-foreground: #9aa299;
-    --color-muted: #d6fbc40f;
-    --color-level-0: #151715;
-    --color-highlight: #D6FBC40F;
-    --color-border-mid: #e9fedf1b;
-    --color-border-low: #EFFEE214;
-    --color-tertiary-foreground: #778175;
+    --color-foreground: #f0ebe5;
+    --color-muted-foreground: #a39d96;
+    --color-muted: #f5b21a0f;
+    --color-level-0: #1a1410;
+    --color-highlight: #f5b21a12;
+    --color-border-mid: #f5b21a1b;
+    --color-border-low: #f5b21a14;
+    --color-tertiary-foreground: #7d7770;
 }
 
 @layer base {
