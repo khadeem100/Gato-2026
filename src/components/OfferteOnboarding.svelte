@@ -56,7 +56,7 @@
     if (!document.querySelector('script[src*="turnstile"]')) {
       log('Loading Turnstile script');
       const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
       script.async = true;
       script.defer = true;
       script.onload = () => { 
@@ -93,19 +93,28 @@
   
   function renderTurnstile() {
     log('Attempting to render Turnstile');
-    const container = document.querySelector('.cf-turnstile');
+    const container = document.getElementById('turnstile-container');
     log('Container found:', !!container);
     if (container) {
       log('Container has children:', container.hasChildNodes());
       if (!container.hasChildNodes()) {
         log('Rendering Turnstile widget');
         try {
-          (window as any).turnstile.render('.cf-turnstile', {
-            sitekey: TURNSTILE_SITE_KEY,
-            callback: 'onTurnstileSuccess',
-            theme: 'light'
-          });
-          log('Turnstile render called successfully');
+          // Clear container
+          container.innerHTML = '';
+          
+          // Render explicitly
+          if ((window as any).turnstile) {
+            const widgetId = (window as any).turnstile.render('#turnstile-container', {
+              sitekey: TURNSTILE_SITE_KEY,
+              callback: 'onTurnstileSuccess',
+              theme: 'light',
+              action: 'offerte-form'
+            });
+            log('Turnstile render called successfully, widget ID:', widgetId);
+          } else {
+            log('Turnstile not available on window');
+          }
         } catch (error) {
           log('Error rendering Turnstile:', error);
         }
@@ -330,12 +339,7 @@
             <!-- Cloudflare Turnstile -->
             <div class="mt-4 pt-4 border-t border-gray-100">
               <label class="block text-sm font-medium text-gray-700 mb-2">Beveiligingscontrole *</label>
-              <div 
-                class="cf-turnstile" 
-                data-sitekey={TURNSTILE_SITE_KEY}
-                data-callback="onTurnstileSuccess"
-                data-theme="light"
-              ></div>
+              <div class="cf-turnstile" id="turnstile-container"></div>
               {#if turnstileToken}
                 <p class="text-sm text-green-600 mt-2 flex items-center gap-1">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
