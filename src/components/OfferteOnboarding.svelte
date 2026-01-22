@@ -52,31 +52,18 @@
       turnstileToken = '';
     };
     
-    // Load Turnstile script
-    if (!document.querySelector('script[src*="turnstile"]')) {
-      log('Loading Turnstile script');
-      const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-      script.async = true;
-      script.defer = true;
-      script.onload = () => { 
-        log('Turnstile script loaded');
-        turnstileLoaded = true;
-        // Render Turnstile if we're on step 3
-        if (currentStep === 3) {
-          setTimeout(() => renderTurnstile(), 100);
-        }
-      };
-      script.onerror = () => log('Failed to load Turnstile script');
-      document.head.appendChild(script);
-    } else {
-      log('Turnstile script already loaded');
+    // Load Turnstile script immediately
+    log('Loading Turnstile script');
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => { 
+      log('Turnstile script loaded');
       turnstileLoaded = true;
-      // Render Turnstile if we're on step 3
-      if (currentStep === 3) {
-        setTimeout(() => renderTurnstile(), 100);
-      }
-    }
+    };
+    script.onerror = () => log('Failed to load Turnstile script');
+    document.head.appendChild(script);
     
     // Callback for Turnstile
     (window as any).onTurnstileSuccess = (token: string) => {
@@ -91,43 +78,11 @@
     };
   });
   
-  function renderTurnstile() {
-    log('Attempting to render Turnstile');
-    const container = document.getElementById('turnstile-container');
-    log('Container found:', !!container);
-    if (container) {
-      log('Container has children:', container.hasChildNodes());
-      if (!container.hasChildNodes()) {
-        log('Rendering Turnstile widget');
-        try {
-          // Clear container
-          container.innerHTML = '';
-          
-          // Render explicitly
-          if ((window as any).turnstile) {
-            const widgetId = (window as any).turnstile.render('#turnstile-container', {
-              sitekey: TURNSTILE_SITE_KEY,
-              callback: 'onTurnstileSuccess',
-              theme: 'light',
-              action: 'offerte-form'
-            });
-            log('Turnstile render called successfully, widget ID:', widgetId);
-          } else {
-            log('Turnstile not available on window');
-          }
-        } catch (error) {
-          log('Error rendering Turnstile:', error);
-        }
-      }
-    }
-  }
-  
   // Reactive statement to render Turnstile when step changes
   $effect(() => {
     log('Step changed:', currentStep, 'loaded:', turnstileLoaded, 'open:', isOpen);
     if (currentStep === 3 && turnstileLoaded && isOpen) {
-      log('Conditions met, will render Turnstile');
-      setTimeout(() => renderTurnstile(), 100);
+      log('On step 4 with Turnstile loaded - widget should auto-render');
     }
   });
 
@@ -339,7 +294,13 @@
             <!-- Cloudflare Turnstile -->
             <div class="mt-4 pt-4 border-t border-gray-100">
               <label class="block text-sm font-medium text-gray-700 mb-2">Beveiligingscontrole *</label>
-              <div class="cf-turnstile" id="turnstile-container"></div>
+              <div 
+                class="cf-turnstile" 
+                data-sitekey={TURNSTILE_SITE_KEY}
+                data-callback="onTurnstileSuccess"
+                data-theme="light"
+                data-action="offerte-form"
+              ></div>
               {#if turnstileToken}
                 <p class="text-sm text-green-600 mt-2 flex items-center gap-1">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
