@@ -4,6 +4,8 @@
   let isOpen = $state(false);
   let currentStep = $state(0);
   let turnstileLoaded = $state(false);
+  let turnstileToken = $state('');
+  let isSubmitting = $state(false);
   let formData = $state({
     bedrijfsnaam: '',
     contactpersoon: '',
@@ -27,6 +29,13 @@
   ];
 
   const druktechnieken = ['Zeefdruk', 'Borduren', 'DTG Print', 'Flex Print', 'Flock Print', 'Sublimatie', 'Transfer', 'Laser Graveren', 'UV Print'];
+  
+  const TURNSTILE_SITE_KEY = '0x4AAAAAAACOL9-MyRWvHOafm';
+  
+  // Debug logging
+  function log(message: string, data?: any) {
+    console.log('[OfferteOnboarding]', message, data || '');
+  }
 
   export function open() {
     isOpen = true;
@@ -34,7 +43,10 @@
   }
 
   onMount(() => {
+    log('Component mounted');
+    
     (window as any).openOfferteOnboarding = () => {
+      log('Opening modal');
       isOpen = true;
       currentStep = 0;
       turnstileToken = '';
@@ -42,19 +54,23 @@
     
     // Load Turnstile script
     if (!document.querySelector('script[src*="turnstile"]')) {
+      log('Loading Turnstile script');
       const script = document.createElement('script');
       script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
       script.async = true;
       script.defer = true;
       script.onload = () => { 
+        log('Turnstile script loaded');
         turnstileLoaded = true;
         // Render Turnstile if we're on step 3
         if (currentStep === 3) {
           setTimeout(() => renderTurnstile(), 100);
         }
       };
+      script.onerror = () => log('Failed to load Turnstile script');
       document.head.appendChild(script);
     } else {
+      log('Turnstile script already loaded');
       turnstileLoaded = true;
       // Render Turnstile if we're on step 3
       if (currentStep === 3) {
@@ -64,45 +80,77 @@
     
     // Callback for Turnstile
     (window as any).onTurnstileSuccess = (token: string) => {
+      log('Turnstile success', token.substring(0, 10) + '...');
       turnstileToken = token;
     };
     
     return () => { 
+      log('Component unmounting');
       delete (window as any).openOfferteOnboarding;
       delete (window as any).onTurnstileSuccess;
     };
   });
   
   function renderTurnstile() {
+    log('Attempting to render Turnstile');
     const container = document.querySelector('.cf-turnstile');
-    if (container && !container.hasChildNodes()) {
-      (window as any).turnstile.render('.cf-turnstile', {
-        sitekey: TURNSTILE_SITE_KEY,
-        callback: 'onTurnstileSuccess',
-        theme: 'light'
-      });
+    log('Container found:', !!container);
+    if (container) {
+      log('Container has children:', container.hasChildNodes());
+      if (!container.hasChildNodes()) {
+        log('Rendering Turnstile widget');
+        try {
+          (window as any).turnstile.render('.cf-turnstile', {
+            sitekey: TURNSTILE_SITE_KEY,
+            callback: 'onTurnstileSuccess',
+            theme: 'light'
+          });
+          log('Turnstile render called successfully');
+        } catch (error) {
+          log('Error rendering Turnstile:', error);
+        }
+      }
     }
   }
   
   // Reactive statement to render Turnstile when step changes
   $effect(() => {
+    log('Step changed:', currentStep, 'loaded:', turnstileLoaded, 'open:', isOpen);
     if (currentStep === 3 && turnstileLoaded && isOpen) {
+      log('Conditions met, will render Turnstile');
       setTimeout(() => renderTurnstile(), 100);
     }
   });
 
-  function close() { isOpen = false; currentStep = 0; }
-  function nextStep() { 
-    if (currentStep < steps.length - 1) currentStep++; 
+  function close() { 
+    log('Closing modal');
+    isOpen = false; 
+    currentStep = 0; 
   }
-  function prevStep() { if (currentStep > 0) currentStep--; }
+  
+  function nextStep() { 
+    if (currentStep < steps.length - 1) {
+      currentStep++; 
+      log('Next step:', currentStep);
+    }
+  }
+  
+  function prevStep() { 
+    if (currentStep > 0) {
+      currentStep--; 
+      log('Previous step:', currentStep);
+    }
+  }
 
   async function submitForm() {
+    log('Submit form called');
     if (!turnstileToken) {
+      log('No turnstile token');
       alert('Voltooi eerst de beveiligingscontrole.');
       return;
     }
     
+    log('Submitting form with token:', turnstileToken.substring(0, 10) + '...');
     isSubmitting = true;
     
     try {
@@ -115,13 +163,17 @@
         }),
       });
       
+      log('Response status:', response.status);
+      
       if (response.ok) {
+        log('Form submitted successfully');
         alert('Bedankt! Uw offerte aanvraag is verzonden. Wij nemen binnen 24 uur contact met u op.');
         close();
         formData = { bedrijfsnaam: '', contactpersoon: '', email: '', telefoon: '', producten: '', aantal: '', druktechniek: '', levertijd: '', budget: '', opmerkingen: '', hasLogo: 'ja', logoFile: null };
         turnstileToken = '';
       } else {
         const errorData = await response.json();
+        log('Submit error:', errorData);
         if (errorData.error === 'Turnstile verification failed') {
           alert('Beveiligingscontrole mislukt. Probeer het opnieuw.');
         } else {
