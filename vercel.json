@@ -3,5 +3,9 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/:path*", "destination": "/:path*.html" }
   ],
-  "trailingSlash": false
+  "trailingSlash": false,
+  "env": {
+    "RESEND_API_KEY": "@resend_api_key",
+    "TURNSTILE_SECRET_KEY": "@turnstile_secret_key"
+  }
 }

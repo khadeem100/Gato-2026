@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import Logo from "../assets/probo-logo.svg";
 import NavLink from "./NavLink.astro";
 import Button from "./ui/Button.svelte";
 import MobileMenu from "./MobileMenu.astro";
 import GithubStars from "./GithubStars.astro";
+import OfferteOnboarding from "./OfferteOnboarding.svelte";
 import { getLink, getTranslator } from "../lib/i18n.ts";
 
 const __ = await getTranslator(Astro.currentLocale);
@@ -16,10 +16,10 @@ type Props = {
 <header class="page-header text-primary data-[scrolled=true]:bg-secondary/80 sticky top-0 z-50 data-[scrolled=true]:backdrop-blur-md transition-all data-[scrolled=true]:border-b">
   <div class="container mx-auto flex items-center py-3 sm:py-4">
     <a class="mr-auto" href={getLink(Astro, "/")} transition:name="header-logo">
-      <Image src={Logo} alt="Logo Gato-International" width={73} height={20} class="block" />
+      <img src="/logo.svg" alt="Logo Gato-International" width="40" height="40" class="block" />
     </a>
     <nav class="hidden sm:flex" transition:name="header-nav">
-      <NavLink href={getLink(Astro, "/about")}>{__("Over Ons")}</NavLink>
+      <NavLink href={getLink(Astro, "/over-ons")}>{__("Over Ons")}</NavLink>
       <NavLink href="https://catalog.gato-international.com">{__("Catalogus")}</NavLink>
       <NavLink href="https://www.gatosports.com">{__("GatoSports")}</NavLink>
       <NavLink href={getLink(Astro, "/contact")}>{__("Contact")}</NavLink>
@@ -27,12 +27,12 @@ type Props = {
     <div
       transition:name="header-compliant"
     >
-      <Button
-        href={getLink(Astro, "/contact")}
-        class="ml-auto h-9 px-4 sm:ml-4 sm:h-8 sm:px-3 whitespace-nowrap"
+      <button
+        id="offerte-btn"
+        class="ml-auto h-9 px-4 sm:ml-4 sm:h-8 sm:px-3 whitespace-nowrap font-medium rounded-full leading-none transition-all inline-flex items-center flex-none justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/80"
       >
         {__("Offerte Aanvragen")}
-      </Button>
+      </button>
     </div>    <slot/>
     {!Astro.props.hideBurger && <burger-menu
       class="group ml-3 grid size-9 place-items-center sm:hidden"
@@ -71,9 +71,24 @@ type Props = {
 </header>
 
 <MobileMenu id="mobile-menu" />
+<OfferteOnboarding client:only="svelte" />
 
 <script>
   import { customElementDefine } from "../lib/dom";
+
+  // Trigger onboarding when offerte button is clicked
+  const offerteBtn = document.getElementById('offerte-btn');
+  if (offerteBtn) {
+    offerteBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Call global function exposed by Svelte component
+      if ((window as any).openOfferteOnboarding) {
+        (window as any).openOfferteOnboarding();
+      }
+    });
+  }
 
   class BurgerMenu extends HTMLElement {
     scrolled = null as null | boolean;

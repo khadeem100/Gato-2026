@@ -12,7 +12,7 @@ export class AnimatedHero extends HTMLElement {
   connectedCallback() {
     this.canvas = document.createElement("canvas");
     this.canvas.setAttribute("class", "absolute inset-0 -z-1 blur-[100px]");
-    this.canvas.style.setProperty('background', "#F8FAF4")
+    this.canvas.style.setProperty('background', "#FFFEF9")
     this.append(this.canvas);
 
     const rect = this.getBoundingClientRect();
@@ -73,7 +73,7 @@ export class AnimatedHero extends HTMLElement {
 }
 
 class Shape {
-  private color = "#F3FFDF";
+  private color = "#FEF3DC";
   private width = 360;
   private height = 170;
   private position: Position;

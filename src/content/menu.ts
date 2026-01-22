@@ -2,7 +2,7 @@ export const menuItems = [
   {
     label: "Over Ons",
     description: "Leer meer over Gato-International",
-    href: "/about",
+    href: "/over-ons",
   },
   {
     label: "Catalogus",
@@ -17,7 +17,12 @@ export const menuItems = [
   {
     label: "Projecten",
     description: "Bekijk onze recente projecten",
-    href: "/stories",
+    href: "/projecten",
+  },
+  {
+    label: "Collectie",
+    description: "Bekijk onze GatoSports collectie",
+    href: "/collectie",
   },
   {
     label: "Contact",

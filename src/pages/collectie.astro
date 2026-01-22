@@ -1,0 +1,124 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import Button from "../components/ui/Button.svelte";
+import { getTranslator, getLink } from "../lib/i18n.ts";
+
+const __ = await getTranslator(Astro.currentLocale);
+
+const products = [
+  { id: 1, name: "2 Flask Belt", image: "/products/2-Flask-Belt-1-GATO-Sports.jpg", description: "Heupgordel met ruimte voor 2 drinkflessen" },
+  { id: 2, name: "2 Flask Set", image: "/products/2-Flask-Set-2-GATO-Sports.jpg", description: "Complete set met 2 soft flasks" },
+  { id: 3, name: "Ankle Support Advanced", image: "/products/Ankle Support Advanced-front-GATO Sports.jpg", description: "Geavanceerde enkelbrace voor extra ondersteuning" },
+  { id: 4, name: "Ankle Support Pro", image: "/products/Ankle Support-front-GATO Sports.jpg", description: "Professionele enkelbrace voor intensief gebruik" },
+  { id: 5, name: "Running Cap", image: "/products/GATO-ACAP-07 FRONT.jpg", description: "Lichtgewicht hardlooppet met reflectie" },
+  { id: 6, name: "Patella Strap", image: "/products/GATO-ACPA-12 FRONT.jpg", description: "Kniebrace voor patella ondersteuning" },
+  { id: 7, name: "Tech Polo", image: "/products/GATO-ACTP-12 SOLO.jpg", description: "Technische sportpolo met moderne pasvorm" },
+  { id: 8, name: "Knee Support", image: "/products/GATO-MEKA-12 LEFT.jpg", description: "Professionele kniebrace voor stabiliteit" },
+  { id: 9, name: "Ultra Multi Light", image: "/products/Gato-Ultra-Multi-Light-1.webp", description: "Multifunctionele LED verlichting" },
+  { id: 10, name: "Head Torch USB", image: "/products/Head-Torch-USB-5-GATO-Sports.jpg", description: "Oplaadbare hoofdlamp voor trail running" },
+  { id: 11, name: "High VIZ Chest Light Adjustable", image: "/products/High-VIZ-Chest-Light-Adjustable-Front-GATO-Sports.jpg", description: "Verstelbare borstlamp met hoge zichtbaarheid" },
+  { id: 12, name: "High Viz Chest Light", image: "/products/High-Viz-Chest-Light-Front-GATO-Sports.jpg", description: "Reflecterende borstlamp voor nachthardlopen" },
+  { id: 13, name: "Hot Cold Pack", image: "/products/Hot Cold Pack-GATO Sport.jpg", description: "Warm/koud kompres voor spierrecuperatie" },
+  { id: 14, name: "Hydration Backpack", image: "/products/Hydration_Backpack-1-GATO-Sports.jpg", description: "Hydratierugzak voor lange runs" },
+  { id: 15, name: "ITB Strap", image: "/products/ITB Strap-GATO Sport 1.jpg", description: "ITB band voor knieondersteuning" },
+  { id: 16, name: "Insole Runner Advanced", image: "/products/Insole Runner Advanced-Right-GATO-Sport.jpg", description: "Geavanceerde hardloopzolen voor extra comfort" },
+  { id: 17, name: "Insole Runner Support", image: "/products/Insole Runner Support-front-GATO-Sport.jpg", description: "Ondersteunende hardloopzolen voor stabiliteit" },
+  { id: 18, name: "Knee Support Pro", image: "/products/Knee Support Pro-left-GATO Sports.jpg", description: "Professionele kniebrace voor maximale stabiliteit" },
+  { id: 19, name: "LED Safer Sport Vest Anthracite", image: "/products/LED-Safer-Sport-Vest-Antracite-Side-GATO-Sports.jpg", description: "LED veiligheidsvest in antraciet" },
+  { id: 20, name: "LED Safer Sport Vest Neon Yellow", image: "/products/LED-Safer-Sport-Vest-Neon-Yellow-Side-GATO-Sports.jpg", description: "LED veiligheidsvest in neon geel" },
+  { id: 21, name: "Motion Light", image: "/products/Motion-Light-Front-GATO-Sports.jpg", description: "Bewegingssensor LED licht" },
+  { id: 22, name: "Multiscarf Orange", image: "/products/Multiscarf-Orange-GATO-Sports.jpg", description: "Multifunctionele sjaal voor alle weersomstandigheden" },
+  { id: 23, name: "Neon LED Armband Orange", image: "/products/Neon-LED-Armband-Flat-Orange-GATO-Sports.jpg", description: "Neon LED armband in oranje" },
+  { id: 24, name: "Neon LED Armband USB Blue", image: "/products/Neon-Led-Armband-USB-off-blue-GATO-Sports.jpg", description: "Oplaadbare LED armband in blauw" },
+  { id: 25, name: "Neon LED Armband USB Green", image: "/products/Neon-Led-Armband-USB-off-green-GATO-Sports.jpg", description: "Oplaadbare LED armband in groen" },
+  { id: 26, name: "Patella Strap Pro", image: "/products/Patella Strap Pro-left1-GATO Sport.jpg", description: "Professionele patella band" },
+  { id: 27, name: "Primer Jacket Men", image: "/products/Primer-Jacket-Man-Front-Yellow-GATO-Sports.jpg", description: "Waterafstotende hardloopjas voor heren" },
+  { id: 28, name: "Primer LED Vest", image: "/products/Primer-LED-Vest-On-GATO-Sports.jpg", description: "LED vest voor maximale zichtbaarheid" },
+  { id: 29, name: "Primer Thermo Top", image: "/products/Primer-Thermo-Top-Side-GATO-Sports.jpg", description: "Warme thermische hardlooptop" },
+  { id: 30, name: "Race Number Belt Snap", image: "/products/Race-Number-Belt-Snap-1-GATO-Sports.jpg", description: "Startnummergordel met kliksluiting" },
+  { id: 31, name: "Race Number Belt", image: "/products/Race_Number-Belt-1-GATO-Sports.jpg", description: "Elastische startnummergordel" },
+  { id: 32, name: "Race Number Magnets", image: "/products/Race_Number-Magnets-Orange-GATO-Sports.jpg", description: "Magnetische startnummerhouders" },
+  { id: 33, name: "Runner LED Clip", image: "/products/Runner-LED-Clip-Front-GATO-Sports.jpg", description: "Clip-on LED licht voor hardlopers" },
+  { id: 34, name: "Soft Flask 500ml", image: "/products/Soft-Flask-500ml-GATO-Sports.jpg", description: "Flexibele drinkfles 500ml" },
+  { id: 35, name: "Soft Reservoir 1.5L", image: "/products/Soft-Reservoir-1.5l-GATO-Sports.jpg", description: "Flexibel waterreservoir 1.5 liter" },
+  { id: 36, name: "Sport Beanie", image: "/products/Sport Beanie-left-GATO Sports.jpg", description: "Warme sportmuts voor winter hardlopen" },
+  { id: 37, name: "Sport Gloves", image: "/products/Sport-Gloves-GATO-Sports.jpg", description: "Warme hardloophandschoenen" },
+  { id: 38, name: "Stretch Belt", image: "/products/Stretch Belt-left-GATO Sports.jpg", description: "Elastische heupgordel die meebeweegt" },
+  { id: 39, name: "Tech Tee Men Black", image: "/products/Tech-Tee-Man-Black-GATO-Sports.jpg", description: "Technisch hardloopshirt voor heren" },
+  { id: 40, name: "Ultra Chest Light", image: "/products/Ultra-Chest-Light-GATO-Sports.jpg", description: "Ultra krachtige borstlamp" },
+  { id: 41, name: "Waterproof LED Sports Belt", image: "/products/Waterproof-LED-Sports-Belt-6-GATO-Sports.jpg", description: "Waterdichte LED heupgordel" },
+  { id: 42, name: "Waterproof Sports Belt", image: "/products/Waterproof-Sports-Belt-3-GATO-Sports.jpg", description: "Waterdichte heupgordel voor je spullen" },
+  { id: 43, name: "Waterproof Sports Belt Magenta", image: "/products/Waterproof-Sports-Belt-Magenta-2-GATO-Sports.jpg", description: "Waterdichte heupgordel in magenta" },
+  { id: 44, name: "Waterproof Tri Belt", image: "/products/Waterproof-Tri-Belt-1-GATO-Sports.jpg", description: "Waterdichte triathlon gordel" },
+  { id: 45, name: "X-Vest Reflective", image: "/products/X-Vest-Reflective-side-GATO-Sports.jpg", description: "Reflecterend X-vest voor maximale zichtbaarheid" },
+];
+---
+
+<Layout
+  title={__("GatoSports Collectie | Hardloopkleding & Sportkleding")}
+  description={__("Ontdek de GatoSports collectie. Hoogwaardige hardloopkleding en sportkleding met reflecterende details. Duurzaam, comfortabel en veilig.")}
+>
+  <main>
+    <!-- Hero Section -->
+    <section class="container py-10 sm:py-20">
+      <div class="text-center mb-12">
+        <h1 class="text-h2 sm:text-h1 mb-4 font-medium animate-slide-in">
+          {__("GatoSports Collectie")}
+        </h1>
+        <p class="text-muted-foreground max-w-[640px] mx-auto text-lg animate-slide-in animation-delay-100">
+          {__("Ontdek alle 45 producten uit onze GatoSports collectie. Van hardloopkleding tot accessoires en medische ondersteuning.")}
+        </p>
+      </div>
+
+      <!-- Product Grid - 4 per row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1400px] mx-auto">
+        {
+          products.map((product) => (
+            <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
+              <!-- Square Image Container -->
+              <div class="aspect-square overflow-hidden bg-gray-50">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              
+              <!-- Product Info - flex-grow pushes buttons to bottom -->
+              <div class="p-4 flex flex-col flex-grow">
+                <h3 class="text-lg font-semibold mb-1.5 leading-tight">{product.name}</h3>
+                <p class="text-muted-foreground text-sm mb-3 flex-grow leading-relaxed">{product.description}</p>
+                
+                <!-- Button Group - stays at bottom -->
+                <div class="flex gap-2 mt-auto">
+                  <a
+                    href="https://www.gatosports.com"
+                    class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-full font-medium text-xs transition-all bg-[#f5b21a] text-white hover:bg-[#d99b15] hover:shadow-lg transform hover:-translate-y-0.5"
+                  >
+                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    {__("Koop nu")}
+                  </a>
+                  <a
+                    href="https://www.gatosports.com"
+                    class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-full font-medium text-xs transition-all border-2 border-[#f5b21a] text-[#f5b21a] hover:bg-[#fef3dc] hover:border-[#d99b15] hover:text-[#d99b15] hover:shadow-lg transform hover:-translate-y-0.5"
+                  >
+                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    {__("Bekijk")}
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import Logo from "../assets/probo-logo.svg";
 import Frameworks from "./block/Frameworks.astro";
 import OpenStatus from "../components/OpenStatus.svelte";
 import Cookie from "../components/Cookie.svelte";
@@ -18,23 +17,23 @@ const menus = [
       { label: __("Home"), href: getLink(Astro, "/") },
       { label: __("Catalogus"), href: "https://catalog.gato-international.com" },
       { label: __("GatoSports"), href: "https://www.gatosports.com" },
-      { label: __("Projecten"), href: getLink(Astro, "/stories") },
+      { label: __("Projecten"), href: getLink(Astro, "/projecten") },
+      { label: __("Collectie"), href: getLink(Astro, "/collectie") },
     ],
   },
   {
     label: __("Bedrijf"),
     items: [
-      { label: __("Over Ons"), href: getLink(Astro, "/about") },
+      { label: __("Over Ons"), href: getLink(Astro, "/over-ons") },
       { label: __("Contact"), href: getLink(Astro, "/contact") },
-      { label: "LinkedIn", href: "https://www.linkedin.com/company/gato-international" },
     ],
   },
   {
     label: __("Juridisch"),
     items: [
-      { label: __("Cookiebeleid"), href: getLink(Astro, "/cookie-policy") },
-      { label: __("Privacybeleid"), href: getLink(Astro, "/privacy") },
-      { label: __("Algemene Voorwaarden"), href: getLink(Astro, "/terms") },
+      { label: __("Cookiebeleid"), href: getLink(Astro, "/cookiebeleid") },
+      { label: __("Privacybeleid"), href: getLink(Astro, "/privacybeleid") },
+      { label: __("Algemene Voorwaarden"), href: getLink(Astro, "/algemene-voorwaarden") },
     ],
   },
 ];
@@ -51,7 +50,7 @@ type Props = {
   >
     <div class="text-tertiary-foreground space-y-4 sm:max-w-[320px]">
       <a href="/" class="block">
-        <Image src={Logo} alt="Logo Gato-International" width={73} height={20} />
+        <img src="/logo.svg" alt="Logo Gato-International" width="40" height="40" />
       </a>
       <Newsletter variant="footer" />
     </div>

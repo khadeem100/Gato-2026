@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import Logo from "../../assets/probo-logo-only.svg";
 import Badges from "../Badges.svelte";
 import Button from "../../components/ui/Button.svelte";
 import { getTranslator, getLink } from "../../lib/i18n.ts";
@@ -8,21 +7,21 @@ import { getTranslator, getLink } from "../../lib/i18n.ts";
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<div class="bg-linear-to-b from-[#F8FAF4] to-[#FFFFFB] py-10 sm:py-20">
+<div class="bg-linear-to-b from-[#FFFEF9] to-[#FFFFFB] py-10 sm:py-20">
   <div class="container">
-    <Image
-      src={Logo}
-      alt="Logo probo"
-      width={48}
-      height={48}
+    <img
+      src="/logo.svg"
+      alt="Gato-International logo"
+      width="48"
+      height="48"
       class="mx-auto mb-6"
     />
     <h2 class="text-h3 sm:text-h2 mb-3 text-center font-medium">
-      {__("Managed frameworks")}
+      {__("Onze druktechnieken")}
     </h2>
     <p class="text-muted-foreground mb-12 text-center text-lg">
-      {__("Not seeing the one you are looking for?")}<br />
-      {__("Reach out, we likely do it as well.")}
+      {__("Van zeefdruk tot laser graveren. Elke techniek perfect voor uw product.")}<br />
+      {__("Niet gevonden wat u zoekt? Neem contact op, we denken graag met u mee.")}
     </p>
 
     <Badges
@@ -38,7 +37,7 @@ const __ = await getTranslator(Astro.currentLocale);
       size="lg"
       class="mx-auto flex w-max"
     >
-      {__("Get compliant")}
+      {__("Vraag offerte aan")}
     </Button>
   </div>
 </div>
